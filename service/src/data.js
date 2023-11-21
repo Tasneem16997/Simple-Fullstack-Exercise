@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 todos = {};
+incrementId  = 4
 
 const data = {
   getAllTodos: () => {
@@ -30,7 +31,22 @@ const data = {
     } catch (error) {
       console.error('Error saving JSON data:', error);
     }
-  }
+  },
+  create: ({title, description}) => {
+     // wrote after the interview
+    newTodo = {
+        id: incrementId,
+        title: title,
+        description: description,
+    };
+    todos = {
+        ...todos,
+        [incrementId++]: newTodo
+    }
+    data.save();
+    return newTodo;
+  },
+
 }
 
 module.exports = { data };

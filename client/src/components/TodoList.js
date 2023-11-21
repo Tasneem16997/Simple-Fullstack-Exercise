@@ -35,6 +35,22 @@ function TodoList() {
     }
   };
 
+  const handleDeleteButton = (id) =>{
+    try{
+      fetch(`http://localhost:3001/todos/${id}`, {
+        method: 'DELETE',
+      })
+          .then((deletedItem) => {
+            delete todos[deletedItem.id]
+            setTodos(...todos)
+          })
+          .catch((error) => console.error('Error deleting todo:', error));
+    }
+    catch (error){
+        console.error(`something went wrong ${error}`)
+    }
+  }
+
   return (
     <>
       <h1>To-Do List:</h1>
@@ -44,7 +60,7 @@ function TodoList() {
             <ul>
               <li key={`${todo.id}-title`}><b>Title: </b>{todo.title}</li>
               <li key={`${todo.id}-description`}><b>Description: </b>{todo.description}</li>
-              <button onClick={() => console.log("Not Implemented")} class="delete-button">Delete</button>
+              <button onClick={ () => handleDeleteButton(todo.id)} className="delete-button">Delete</button>
             </ul>
           </li>
         ))}

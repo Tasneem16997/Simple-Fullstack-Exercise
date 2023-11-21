@@ -10,5 +10,7 @@ router.get('/', (_req, res) => {
 router.delete('/:id', (req, res) => {
   res.json(data.deleteTodoById(req.params.id))
 });
-
+router.post('/', (req, res) => {
+  res.json(data.create(req.body))
+});
 module.exports = { router };
